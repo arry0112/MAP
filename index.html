@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mallakhamb Association of Punjab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="assets/logo.png" alt="Mallakhamb Punjab Logo" class="site-logo" />
+        <div class="site-title-wrap">
+          <h2 class="site-title">Mallakhamb Association of Punjab <sup class="site-reg">Regd.</sup></h2>
+          <div class="site-sub-aff">Affiliated with Mallakhamb Federation of India</div>
+        </div>
+      </div>
+      <div class="nav-menu" id="nav-menu">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#about" class="nav-link" data-section="about">About</a>
+        <a href="#events" class="nav-link" data-section="events">Events</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Dynamic Notice Ribbon (JS ticker) -->
+  <div class="notice-ribbon" id="notice-ribbon">
+    <div class="ticker" id="ticker">
+      <div class="ticker-track" id="ticker-track"></div>
+      <div class="ticker-track clone" id="ticker-track-2"></div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <!-- Hero Carousel -->
+      <div class="hero-section">
+        <div class="carousel-container">
+          <div class="carousel" id="hero-carousel"></div>
+          <div class="slide-overlay" aria-hidden="true"></div>
+          <div class="slide-caption" id="slide-caption"></div>
+          <div class="carousel-controls">
+            <button class="carousel-btn prev" id="carousel-prev" aria-label="Previous slide">‹</button>
+            <button class="carousel-btn next" id="carousel-next" aria-label="Next slide">›</button>
+          </div>
+          <div class="carousel-indicators" id="carousel-indicators"></div>
+        </div>
+      </div>
+
+      <!-- Modern History Section -->
+      <section id="history-modern" class="history-modern section">
+        <div class="history-hero">
+          <div class="history-hero__overlay" aria-hidden="true"></div>
+          <div class="container history-hero__content">
+            <h2 class="history-title">The Ancient Art of Mallakhamb</h2>
+            <p class="history-subtitle">
+              A centuries‑old discipline blending strength, control, and artistry on pole and rope—retold for today with purpose and pride.
+            </p>
+            <div class="history-cta">
+              <a id="cta-events" href="#events" class="btn btn-primary js-scroll" data-section="events">See Events</a>
+              <a id="cta-about"  href="#about"  class="btn btn-ghost js-scroll"  data-section="about">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container history-timeline">
+          <article class="timeline-card reveal">
+            <div class="timeline-icon">
+                <img src="assets/origin.gif" alt="Origins icon" />
+              </div>
+            <h3>Origins</h3>
+            <p>Roots in classical Indian training—where agility and discipline met innovation.</p>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-icon">
+              <img src="assets/evolution.gif" alt="Evolution icon" />
+            </div>
+            <h3>Evolution</h3>
+            <p>From wrestler conditioning to a refined sport fusing gymnastics and yogic control.</p>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-icon">
+              <img src="assets/modern_era.gif" alt="Modern era icon" />
+            </div>
+            <h3>Modern Era</h3>
+            <p>A competitive stage with safety, judging, and training frameworks for all levels.</p>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-icon">
+              <img src="assets/punjab.gif" alt="Punjab icon" />
+            </div>
+            <h3>In Punjab</h3>
+            <p>Growing infrastructure, events, and pathways nurturing future champions.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Org snapshot + Members -->
+      <section class="about-snapshot section container">
+        <div class="snapshot-grid">
+          <div class="snapshot-card">
+            <h3>Our Mission</h3>
+            <p id="mission-text"></p>
+          </div>
+          <div class="snapshot-card">
+            <h3>Our Vision</h3>
+            <p id="vision-text"></p>
+          </div>
+          <div class="snapshot-card">
+            <h3>Established</h3>
+            <p id="estd-text"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="members section container">
+        <h2 class="section-title">Leadership & Committee</h2>
+        <div class="members-grid" id="members-grid"></div>
+      </section>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page">
+      <div class="container">
+        <h1 class="page-title">About the Association</h1>
+        <p class="lead">Promoting Mallakhamb across Punjab through training, events, and community outreach.</p>
+
+        <div class="achievements-section">
+          <h2>Our Achievements</h2>
+          <div class="achievements-grid" id="achievements-grid"></div>
+        </div>
+
+        <div class="players-section">
+          <h2>Our Champions</h2>
+          <div class="players-grid" id="players-grid"></div>
+        </div>
+
+        <div class="event-galleries-section">
+          <h2>Event Galleries</h2>
+          <div class="galleries-grid" id="galleries-grid"></div>
+        </div>
+      </div>
+
+      <!-- Lightbox Modal -->
+      <div id="imageModal" class="modal" aria-hidden="true">
+        <button class="close" aria-label="Close">&times;</button>
+        <img class="modal-content" id="modalImage" alt="" />
+        <div class="modal-caption" id="modalCaption"></div>
+        <div class="modal-nav">
+          <button class="prev-btn" onclick="changeImage(-1)" aria-label="Previous image">&lt;</button>
+          <button class="next-btn" onclick="changeImage(1)" aria-label="Next image">&gt;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section id="events" class="page">
+      <div class="container">
+        <h1 class="page-title">Events & Notices</h1>
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="event">Events</button>
+          <button class="filter-btn" data-filter="notice">Notices</button>
+        </div>
+
+  <div id="events-list" class="cards-grid"></div>
+  <div style="height: 2.5rem;"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page">
+      <div class="container">
+        <h1 class="page-title">Contact</h1>
+      </div>
+      <div class="container contact-grid">
+        <div class="contact-card">
+          <h3>General Secretary</h3>
+          <div class="sec-profile" id="sec-profile"></div>
+        </div>
+        <div class="contact-card">
+          <h3>Write to Us</h3>
+          <form id="contact-form" action="https://formspree.io/f/xovlyqbg" method="POST">
+            <div class="form-row">
+              <input type="text" id="name" name="name" placeholder="Full Name" required />
+              <input type="email" id="email" name="email" placeholder="Email" required />
+            </div>
+            <input type="text" id="subject" name="subject" placeholder="Subject" required />
+            <textarea id="message" name="message" rows="5" placeholder="Message" required></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p class="form-status" id="form-status" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-flex">
+      <p>© <span id="year"></span> Mallakhamb Association of Punjab</p>
+  <p>Email: sports.pma@gmail.com</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <div id="page-transition" aria-hidden="true"></div>
+</body>
+</html>
