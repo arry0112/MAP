@@ -37,8 +37,7 @@ const appData = {
   notices: [
     { id: 1, title: "State Championship 2025 - Registration Open", content: "Punjab State Mallakhamb Championship 2025 registration is now open. Last date for registration: 15th October 2025.", date: "2025-09-01", expiryDate: "2025-10-15", type: "event", priority: "high", pdfUrl: "assets/pdfs/championship-registration.pdf", pdfFilename: "Championship_Registration_2025.pdf" },
     { id: 2, title: "Winter Training Camp Announcement", content: "Special winter training camp for advanced practitioners from November 1-30, 2025 at Patiala Sports Complex.", date: "2025-08-20", expiryDate: "2025-09-30", type: "notice", priority: "medium", pdfUrl: "assets/pdfs/winter-camp.pdf", pdfFilename: "Winter_Training_Camp_2025.pdf" },
-    { id: 3, title: "Equipment Subsidy Scheme", content: "Government subsidy available for Mallakhamb equipment purchase. Apply through our office with required documents.", date: "2025-08-15", expiryDate: "2025-09-31", type: "notice", priority: "medium", pdfUrl: "assets/pdfs/subsidy-form.pdf", pdfFilename: "Equipment_Subsidy_Form.pdf" },
-    { id: 4, title: "Annual General Meeting 2025", content: "Annual General Meeting scheduled for 5th November 2025 at 2:00 PM. All members requested to attend.", date: "2025-09-01", expiryDate: "2025-10-05", type: "event", priority: "high", pdfUrl: "assets/pdfs/agm-agenda.pdf", pdfFilename: "AGM_Agenda_2025.pdf" },
+    { id: 3, title: "Annual General Meeting 2025", content: "Annual General Meeting scheduled for 5th November 2025 at 2:00 PM. All members requested to attend.", date: "2025-09-01", expiryDate: "2025-10-05", type: "event", priority: "high", pdfUrl: "assets/pdfs/agm-agenda.pdf", pdfFilename: "AGM_Agenda_2025.pdf" },
   ],
 
   events: [
@@ -75,7 +74,43 @@ function parseDateForSort(d) {
   const t = new Date(d).getTime();
   return isNaN(t) ? 0 : t;
 }
-const isExpired = (d) => new Date() > new Date(d);
+// Parse expiry date and return timestamp (end of day). Returns:
+// - null if no expiry provided (treat as not expired)
+// - 0 if the date string is invalid (treat as expired)
+function parseExpiryTimestamp(d) {
+  if (!d) return null;
+  // Month-only YYYY-MM -> treat as last millisecond of that month
+  if (/^\d{4}-\d{2}$/.test(d)) {
+    const [y, m] = d.split("-").map(Number);
+    // JS: new Date(year, monthIndex+1, 0) -> last day of month
+    const last = new Date(y, m, 0, 23, 59, 59, 999);
+    return isNaN(last.getTime()) ? 0 : last.getTime();
+  }
+  // Full date YYYY-MM-DD -> set to end of that day
+  const ymd = d.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (ymd) {
+    const y = Number(ymd[1]);
+    const m = Number(ymd[2]);
+    const day = Number(ymd[3]);
+    const dt = new Date(y, m - 1, day, 23, 59, 59, 999);
+    return isNaN(dt.getTime()) ? 0 : dt.getTime();
+  }
+  // Fallback: try Date.parse on other formats
+  const t = new Date(d);
+  if (!isNaN(t.getTime())) {
+    t.setHours(23, 59, 59, 999);
+    return t.getTime();
+  }
+  // Unparseable -> mark as expired
+  return 0;
+}
+
+const isExpired = (d) => {
+  const ts = parseExpiryTimestamp(d);
+  if (ts === null) return false; // no expiry means not expired
+  if (ts === 0) return true; // invalid -> treat as expired
+  return Date.now() > ts;
+};
 
 // Generate a small inline SVG placeholder (data URL) with initials or label
 function svgPlaceholder(text = "", opts = {}) {
@@ -146,6 +181,20 @@ const Navigation = {
     const menu = byId("nav-menu");
     if (toggle && menu) toggle.addEventListener("click", () => menu.classList.toggle("open"));
 
+    // Close menu when clicking outside on mobile
+    const onDocClick = (e) => {
+      if (!menu) return;
+      if (!menu.classList.contains('open')) return;
+      const target = e.target;
+      if (target.closest && (target.closest('#nav-menu') || target.closest('#nav-toggle'))) return;
+      menu.classList.remove('open');
+    };
+    document.addEventListener('click', onDocClick);
+
+    // Close on Escape
+    const onEsc = (e) => { if (e.key === 'Escape' && menu && menu.classList.contains('open')) menu.classList.remove('open'); };
+    document.addEventListener('keydown', onEsc);
+
     // Explicit hero bindings to avoid any stacking/overlay edge cases
     const eventsBtn = byId("cta-events");
     const aboutBtn  = byId("cta-about");
@@ -178,6 +227,9 @@ const Navigation = {
     } else {
       switchPage();
     }
+    // Close mobile menu if it's open
+    const mobileMenu = byId('nav-menu');
+    if (mobileMenu && mobileMenu.classList.contains('open')) mobileMenu.classList.remove('open');
     // Update nav active
     $$(".nav-link").forEach((a) => a.classList.toggle("active", a.getAttribute("data-section") === sectionId));
     // Section-specific init
