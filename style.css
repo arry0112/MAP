@@ -51,8 +51,8 @@ body{
 .site-sub{font-size:0.7rem;color:var(--muted);margin-left:6px}
 .site-sub-aff{font-size:0.78rem;color:var(--muted);margin-top:2px}
 
-/* superscript Regd. */
-.site-reg{font-size:0.6rem;color:var(--muted);margin-left:6px;vertical-align:super}
+/* inline bracketed Regd. */
+.site-reg{font-size:0.8rem;color:var(--muted);margin-left:6px}
 
 /* title wrapper beside logo */
 .site-title-wrap{display:flex;flex-direction:column}
@@ -246,8 +246,17 @@ body{
 @media(max-width:880px){.contact-grid{grid-template-columns:1fr}}
 .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
 .sec-profile{display:flex;gap:12px;align-items:center}
+.sec-profile img{max-width:100%;height:auto}
 .sec-profile img{width:120px;height:150px;border-radius:12px;object-fit:cover;border:1px solid var(--border)}
 .form-row{display:flex;gap:10px}
+/* Make form inputs stack and fit on small screens */
+@media(max-width:640px){
+  .form-row{flex-direction:column}
+  .form-row input{width:100%}
+  .contact-grid{grid-template-columns:1fr}
+  .sec-profile{flex-direction:column;align-items:center;text-align:center}
+  .sec-profile img{width:120px;height:150px}
+}
 input,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text)}
 button{cursor:pointer}
 .form-status{min-height:20px;color:var(--muted)}
