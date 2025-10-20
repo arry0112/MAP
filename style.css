@@ -257,6 +257,18 @@ body{
   .sec-profile{flex-direction:column;align-items:center;text-align:center}
   .sec-profile img{width:120px;height:150px}
 }
+
+/* Extra-tight mobile rules to avoid any horizontal overflow on very small devices */
+@media (max-width:420px) {
+  html,body{max-width:100%;overflow-x:hidden}
+  .container{padding:0 10px}
+  .contact-card{padding:12px}
+  .form-row{flex-direction:column;gap:8px}
+  .form-row input, .form-row textarea, .contact-card button{width:100%;box-sizing:border-box}
+  .sec-profile{flex-direction:column;align-items:center;text-align:center;gap:8px}
+  .sec-profile img{width:100px;height:auto;max-width:120px}
+  .site-logo{height:36px}
+}
 input,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text)}
 button{cursor:pointer}
 .form-status{min-height:20px;color:var(--muted)}
