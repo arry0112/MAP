@@ -154,13 +154,13 @@ body{
 .timeline-card::after{
   content:"";
   position:absolute;
-  left: calc(100% + 8px);
+  left: calc(100% + 0.5px);
   top:50%;
   transform:translateY(-50%);
-  width:40px;
-  height:2px;
+  width:20px;
+  height:20px;
   background:linear-gradient(90deg, rgba(46,109,216,.65), rgba(21,178,201,.65));
-  border-radius:2px;
+  border-radius:0px;
 }
 .history-timeline>.timeline-card:nth-child(4)::after{display:none}
 @media(max-width:1024px){.timeline-card::after{display:none}}
