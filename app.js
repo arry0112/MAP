@@ -17,10 +17,10 @@ const appData = {
     { name: "Dr. Rainder Pathania", designation: "President", image: "assets/rajinder.jpeg" },
     { name: "Dr. Vipan Pathania", designation: "General Secretary", image: "assets/vipan.jpeg", phone: "+91-99157-05868", email: "sports.pma@gmail.com" },
     { name: "Mr. Neetan Bawa", designation: "Treasurer", image: "assets/neetan.jpg" },
-    { name: "Mr. A.K. Bansal", designation: "Senior Vice President", image: "assets/akbansal.jpg"},
-    { name: "Mr. Parminder Singh", designation: "Organising Secretary"},
+    { name: "Mr. A.K. Bansal", designation: "Senior Vice President", image: "assets/akbansal.jpg" },
+    { name: "Mr. Parminder Singh", designation: "Organising Secretary" },
     { name: "Dr. Neeru Ghai", designation: "Joint Secretary", image: "assets/neeru.jpeg" },
-    { name: "Mr. Ravinder Singh", designation: "Joint Secretary", image: "assets/ravinder.jpeg" },    
+    { name: "Mr. Ravinder Singh", designation: "Joint Secretary", image: "assets/ravinder.jpeg" },
     { name: "Mrs. Neetu Bala", designation: "EC Member", image: "assets/neetu.jpeg" },
   ],
 
@@ -38,11 +38,15 @@ const appData = {
     { id: 1, title: "State Championship 2025 - Registration Open", content: "Punjab State Mallakhamb Championship 2025 registration is now open. Last date for registration: 15th October 2025.", date: "2025-09-01", expiryDate: "2025-10-15", type: "event", priority: "high", pdfUrl: "assets/pdfs/championship-registration.pdf", pdfFilename: "Championship_Registration_2025.pdf" },
     { id: 2, title: "Winter Training Camp Announcement", content: "Special winter training camp for advanced practitioners from November 1-30, 2025 at Patiala Sports Complex.", date: "2025-08-20", expiryDate: "2025-09-30", type: "notice", priority: "medium", pdfUrl: "assets/pdfs/winter-camp.pdf", pdfFilename: "Winter_Training_Camp_2025.pdf" },
     { id: 3, title: "Annual General Meeting 2025", content: "Annual General Meeting scheduled for 5th November 2025 at 2:00 PM. All members requested to attend.", date: "2025-09-01", expiryDate: "2025-10-05", type: "event", priority: "high", pdfUrl: "assets/pdfs/agm-agenda.pdf", pdfFilename: "AGM_Agenda_2025.pdf" },
+    {
+      id: 4, title: "Ministry of Youth Affairs & Sports Reconstitutes Ad-hoc Committee for Mallakhamb", content: "The Ministry of Youth Affairs & Sports has reconstituted the Ad-hoc Committee for Mallakhamb to oversee the sport's daily affairs and conduct fresh elections. Appointed members Ms. Manjushree Dayanand and Olympian Mr. M.M. Somaya will serve a three-month term or until a new Executive Committee takes charge. Please review the official Mallakhamb order pdf dated 27.08.2026 for full details on their constitutional mandate.",
+      date: "2026-08-27", expiryDate: "2026-09-27", type: "notice", priority: "medium", pdfUrl: "assets/pdfs/Mallakhamb order.pdf", pdfFilename: "Mallakhamb order.pdf"
+    }
   ],
 
   events: [
     { id: 1, title: "All India Inter-University Mallakhamb Championship", date: "2025-10-24", venue: "Vinayaka Mission's Research Foundation, Chennai", categories: ["Senior MEN & WOMEN"], registrationDeadline: "2025-10-07", expiryDate: "2025-10-24" },
-    { id: 2, title: "Khelo India Inter-University Games 2025 - Mallakhamb", date: "2025-11", venue:"Rajasthan University, Jaipur", categories:["College Students"], expiryDate: "2025-10-30" },
+    { id: 2, title: "Khelo India Inter-University Games 2025 - Mallakhamb", date: "2025-11", venue: "Rajasthan University, Jaipur", categories: ["College Students"], expiryDate: "2025-10-30" },
   ],
 };
 
@@ -148,8 +152,8 @@ const Navigation = {
       const ribbon = document.querySelector('.notice-ribbon');
       const navH = nav ? nav.offsetHeight : 0;
       const ribbonH = ribbon ? ribbon.offsetHeight : 0;
-  const offset = 8; // small gap so content isn't flush against the ribbon
-  const total = navH + ribbonH + offset;
+      const offset = 8; // small gap so content isn't flush against the ribbon
+      const total = navH + ribbonH + offset;
       // set CSS variable for sticky positioning
       document.documentElement.style.setProperty('--nav-height', navH + 'px');
       document.documentElement.style.scrollPaddingTop = total + 'px';
@@ -197,9 +201,9 @@ const Navigation = {
 
     // Explicit hero bindings to avoid any stacking/overlay edge cases
     const eventsBtn = byId("cta-events");
-    const aboutBtn  = byId("cta-about");
+    const aboutBtn = byId("cta-about");
     eventsBtn && eventsBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); this.goto("events"); });
-    aboutBtn  && aboutBtn.addEventListener("click",  (e) => { e.preventDefault(); e.stopPropagation(); this.goto("about");  });
+    aboutBtn && aboutBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); this.goto("about"); });
   },
 
   goto(sectionId) {
@@ -341,8 +345,8 @@ const Ticker = {
       .map((n) => {
         const badge =
           n.priority === "high" ? `<span class="badge high">High</span>` :
-          n.priority === "medium" ? `<span class="badge medium">Med</span>` :
-          `<span class="badge low">Low</span>`;
+            n.priority === "medium" ? `<span class="badge medium">Med</span>` :
+              `<span class="badge low">Low</span>`;
         return `<span class="item">${badge} ${n.title} — ${n.content}</span>`;
       })
       .join("");
@@ -369,8 +373,8 @@ const Members = {
     appData.members.forEach((m) => {
       const el = document.createElement("div");
       el.className = "member-card reveal";
-  const imgSrc = m.image || svgPlaceholder(m.name, { w: 90, h: 115 });
-  const imgHtml = `<img class="member-img" src="${imgSrc}" alt="${m.name}">`;
+      const imgSrc = m.image || svgPlaceholder(m.name, { w: 90, h: 115 });
+      const imgHtml = `<img class="member-img" src="${imgSrc}" alt="${m.name}">`;
       el.innerHTML = `
         ${imgHtml}
         <div class="member-info">
@@ -516,7 +520,7 @@ const Events = {
     appData.events.filter((e) => !isExpired(e.expiryDate)).forEach((e) => items.push({ itemType: "event", ...e }));
     // Only include non-expired notices
     appData.notices.filter((n) => !isExpired(n.expiryDate)).forEach((n) => items.push({ itemType: "notice", ...n }));
-  return items.sort((a, b) => parseDateForSort(a.date) - parseDateForSort(b.date));
+    return items.sort((a, b) => parseDateForSort(a.date) - parseDateForSort(b.date));
   },
   render() {
     const grid = byId("events-list");
@@ -537,11 +541,11 @@ const Events = {
     if (item.itemType === "event") {
       // Optionally, allow events to have a priority property, else default to low
       el.className = `card event-card ${priorityClass}`;
-  const desc = item.description ? `<div class="event-description">${item.description}</div>` : "";
-  const categories = item.categories?.length ? `<div class="event-categories">${item.categories.map((c) => `<span class="category-tag">${c}</span>`).join("")}</div>` : "";
-  const reg = item.registrationDeadline ? `<div class="meta">Registration Deadline: ${fmt(item.registrationDeadline)}</div>` : "";
-  const venueBlock = item.venue ? `<div class="event-meta"><div class="event-meta-header">Location</div><div class="event-venue">📍 ${item.venue}</div></div>` : "";
-  const categoriesBlock = item.categories?.length ? `<div class="event-meta"><div class="event-meta-header">Categories</div>${categories}</div>` : "";
+      const desc = item.description ? `<div class="event-description">${item.description}</div>` : "";
+      const categories = item.categories?.length ? `<div class="event-categories">${item.categories.map((c) => `<span class="category-tag">${c}</span>`).join("")}</div>` : "";
+      const reg = item.registrationDeadline ? `<div class="meta">Registration Deadline: ${fmt(item.registrationDeadline)}</div>` : "";
+      const venueBlock = item.venue ? `<div class="event-meta"><div class="event-meta-header">Location</div><div class="event-venue">📍 ${item.venue}</div></div>` : "";
+      const categoriesBlock = item.categories?.length ? `<div class="event-meta"><div class="event-meta-header">Categories</div>${categories}</div>` : "";
       el.innerHTML = `
         <div class="meta notice-chip">Event</div>
         <h3 class="event-title">${item.title}</h3>
@@ -614,8 +618,8 @@ const ContactForm = {
     if (sec) {
       const gs = appData.members.find((m) => m.designation.toLowerCase().includes("general secretary"));
       if (gs) {
-  const imgSrc = gs.image || svgPlaceholder(gs.name, { w: 120, h: 150 });
-  const img = `<img src="${imgSrc}" alt="${gs.name}">`;
+        const imgSrc = gs.image || svgPlaceholder(gs.name, { w: 120, h: 150 });
+        const img = `<img src="${imgSrc}" alt="${gs.name}">`;
         sec.innerHTML = `
           ${img}
           <div>
